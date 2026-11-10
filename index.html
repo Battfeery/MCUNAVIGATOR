@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCU Interactive Campus Map</title>
+  <meta name="description" content="Find buildings, departments and gates on the Manila Central University campus in Caloocan.">
+  <meta name="theme-color" content="#4B1C6D">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button id="menu-btn" class="menu-btn" aria-label="Open list"><i class="fa-solid fa-bars"></i></button>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">
+      <div class="logo">MCU</div>
+      <div><h1>MCU Caloocan</h1><p>Campus Navigator &amp; Directory</p></div>
+      <button id="close-btn" class="close-side" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="search" type="text" placeholder="Search building, department...">
+    </div>
+    <div id="filters" class="filters">
+      <button data-cat="All" class="active">All</button>
+      <button data-cat="Medical">Medical</button>
+      <button data-cat="Academic">Academic</button>
+      <button data-cat="Facilities">Facilities</button>
+      <button data-cat="Administration">Admin</button>
+      <button data-cat="Gates">Gates</button>
+    </div>
+    <div id="list" class="list"></div>
+    <div class="side-foot"><b>Manila Central University</b><br>EDSA, Caloocan City</div>
+  </aside>
+
+  <main class="map-wrap">
+    <div id="map"></div>
+    <div class="tools">
+      <button id="recenter" title="Reset view"><i class="fa-solid fa-compass"></i></button>
+      <button id="locate" title="Show my location"><i class="fa-solid fa-location-crosshairs"></i></button>
+      <button id="layer" title="Satellite / Street"><i class="fa-solid fa-layer-group"></i></button>
+      <button id="edit" title="Adjust pins"><i class="fa-solid fa-up-down-left-right"></i></button>
+    </div>
+    <div id="edit-bar" class="edit-bar hidden">
+      <span><i class="fa-solid fa-hand-pointer"></i> Drag each pin onto its building</span>
+      <button id="copy-coords">Copy coordinates</button>
+      <button id="reset-coords" class="ghost">Reset</button>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <div class="sheet">
+      <div class="m-photo">
+        <div id="m-main" class="photo-slot"></div>
+        <button id="m-close" class="m-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        <span id="m-cat" class="badge"></span>
+      </div>
+      <div id="m-thumbs" class="thumbs"></div>
+      <div class="m-body">
+        <h2 id="m-title"></h2>
+        <p class="m-code"><i class="fa-solid fa-location-dot"></i> <span id="m-code"></span></p>
+        <div class="info">
+          <div><small>Hours</small><b id="m-hours"></b></div>
+          <div><small>Structure</small><b id="m-floors"></b></div>
+        </div>
+        <h3>Overview</h3><p id="m-desc"></p>
+        <h3>Departments</h3><div id="m-depts" class="tags"></div>
+        <h3>Floor Directory</h3><div id="m-dir" class="dir"></div>
+        <div class="hint"><i class="fa-solid fa-person-walking"></i><span id="m-hint"></span></div>
+      </div>
+      <div class="m-foot">
+        <label class="upload"><i class="fa-solid fa-image"></i> Preview my photo
+          <input id="m-file" type="file" accept="image/*" hidden>
+        </label>
+        <button id="m-del" class="del" title="Remove this photo"><i class="fa-solid fa-trash"></i></button>
+        <button id="m-share" class="sec" title="Copy link to this building"><i class="fa-solid fa-link"></i></button>
+        <a id="m-dir-link" class="dirlink" target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right"></i> Directions</a>
+        <button id="m-go"><i class="fa-solid fa-location-crosshairs"></i> Show on map</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
